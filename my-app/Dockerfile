@@ -10,13 +10,8 @@ WORKDIR ${HOME_PATH_ON_IMAGE}
 COPY . ${APP_HOME_ON_IMAGE}
 RUN mvn -B compile -e -f pom.xml
 
-#set version stage
-FROM build_stage AS version_stage
-WORKDIR ${HOME_PATH_ON_IMAGE}
-RUN mvn versions:set -DnewVersion=${VERSION_NUM}
-
 #package stage.
-FROM version_stage AS package_stage
+FROM build_stage AS package_stage
 WORKDIR ${HOME_PATH_ON_IMAGE}
 RUN mvn -B package -e -f pom.xml
 
