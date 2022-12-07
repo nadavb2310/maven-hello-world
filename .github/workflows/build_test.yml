@@ -55,7 +55,7 @@ jobs:
         ls -la
         cd maven-hello-world
         ls -la
-        cd /my-app
+        cd my-app
         ls -la
         docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
     - name: Login to DockerHub
