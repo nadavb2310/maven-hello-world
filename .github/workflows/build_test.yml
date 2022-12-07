@@ -38,7 +38,7 @@ jobs:
     - name: Bump jar version
       id: bump
       run: |
-        POMPATH=my-app
+        POMPATH=/my-app
         OLD_VERSION=$(cd $POMPATH && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         BUMP_MODE="none"
         old="$OLD_VERSION"
@@ -51,7 +51,7 @@ jobs:
 
     - name: Docker build
       run: |
-        docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f my-app/Dockerfile --build-args ${{ steps.bump.outputs.jar_version }}
+        docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f /my-app/Dockerfile --build-args ${{ steps.bump.outputs.jar_version }}
    
     - name: Login to DockerHub
       uses: docker/login-action@v1
