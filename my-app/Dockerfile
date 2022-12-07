@@ -16,6 +16,6 @@ RUN mvn -B package -e -f pom.xml
 FROM openjdk:11-jdk-slim AS app_stage
 WORKDIR /my-app
 ENV VERSION_NUM=${VERSION_NUM}
-COPY --from=package_stage target/my-app-${VERSION_NUM}.jar ${HOME_PATH_ON_IMAGE}
+COPY --from=package_stage target/my-app-${VERSION_NUM}.jar /my-app
 #CMD java -jar my-app-*.jar
 CMD ["/usr/bin/java", "-jar", "my-app-1.0.0.jar"]
