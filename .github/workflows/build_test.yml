@@ -22,7 +22,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Clone Github Repository
       # You may pin to the exact commit or the version.
@@ -38,18 +38,18 @@ jobs:
     - name: Bump jar version
       id: bump
       run: |
-        POMPATH=/my-app
-        OLD_VERSION=$(cd $POMPATH && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        OLD_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         BUMP_MODE="none"
         old="$OLD_VERSION"
         parts=( ${old//./ } )
         bv=$((parts[2] + 1))
         NEW_VERSION="${parts[0]}.${parts[1]}.${bv}"
-        echo "pom.xml at" $POMPATH "will be bumped from" $OLD_VERSION "to" $NEW_VERSION
+        echo "pom.xml will be bumped from" $OLD_VERSION "to" $NEW_VERSION
         pwd
-        mvn -q versions:set -DnewVersion="${NEW_VERSION}" --file $POMPATH/pom.xml
+        mvn -q versions:set -DnewVersion="${NEW_VERSION}" --file pom.xml
         echo ::set-output name=jar_version::${NEW_VERSION}
-
+      working-directory: /my-app
+    
     - name: Docker build
       run: |
         docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f my-app/Dockerfile --build-args ${{ steps.bump.outputs.jar_version }}
