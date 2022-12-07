@@ -46,7 +46,7 @@ jobs:
         bv=$((parts[2] + 1))
         NEW_VERSION="${parts[0]}.${parts[1]}.${bv}"
         echo "pom.xml at" $POMPATH "will be bumped from" $OLD_VERSION "to" $NEW_VERSION
-        echo pwd
+        pwd
         mvn -q versions:set -DnewVersion="${NEW_VERSION}" --file $POMPATH/pom.xml
         echo ::set-output name=jar_version::${NEW_VERSION}
 
