@@ -37,7 +37,7 @@ jobs:
 
     - name: Docker build
       run: |
-        docker build . -t nadavb2310/maven-hello-world:${{ steps.bump.outputs.jar_version }} -f DockerfileMultiStage
+        docker build . -t nadavb2310/maven-hello-world:${{ steps.bump.outputs.jar_version }} -f Dockerfile
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
