@@ -54,6 +54,7 @@ jobs:
         pwd
         cd ..
         pwd
+        ls -la
         cd /home/runner/work/maven-hello-world/my-app/
         docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
     - name: Login to DockerHub
