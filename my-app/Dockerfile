@@ -1,7 +1,7 @@
 # define args
 ARG BUILD_IMAGE=maven:3
 ARG RUNTIME_IMAGE=openjdk:11-jdk-slim
-ARG HOME_PATH_ON_IMAGE=/maven-hello-world
+ARG HOME_PATH_ON_IMAGE=/
 ARG VERSION_NUM=1.0.0
 
 #build stage.
