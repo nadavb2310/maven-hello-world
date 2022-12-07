@@ -51,8 +51,9 @@ jobs:
     
     - name: Docker build
       run: |
-        docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f my-app/Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
-   
+        docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
+      working-directory: maven-hello-world/my-app/
+
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
