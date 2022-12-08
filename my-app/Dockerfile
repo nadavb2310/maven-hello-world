@@ -2,7 +2,7 @@
 ARG VERSION_NUM=1.0.0
 
 #build stage.
-FROM maven:3 as build_stage 
+FROM maven:3 as build_stage
 WORKDIR /my-app
 COPY . .
 RUN mvn -B compile -e -f pom.xml
