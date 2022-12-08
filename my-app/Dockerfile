@@ -1,24 +1,21 @@
 # define args
-ARG BUILD_IMAGE=maven:3
-ARG RUNTIME_IMAGE=openjdk:11-jdk-slim
-ARG HOME_PATH_ON_IMAGE=/
 ARG VERSION_NUM=1.0.0
 
 #build stage.
-FROM ${BUILD_IMAGE} as build_stage 
-WORKDIR ${HOME_PATH_ON_IMAGE}
-COPY . ${APP_HOME_ON_IMAGE}
+FROM maven:3 as build_stage
+WORKDIR /my-app
+COPY . .
 RUN mvn -B compile -e -f pom.xml
 
 #package stage.
 FROM build_stage AS package_stage
-WORKDIR ${HOME_PATH_ON_IMAGE}
+WORKDIR /my-app
 RUN mvn -B package -e -f pom.xml
 
 #app stage
-FROM ${RUNTIME_IMAGE} AS app_stage
-WORKDIR ${HOME_PATH_ON_IMAGE}
+FROM openjdk:11-jdk-slim AS app_stage
+WORKDIR /my-app
 ENV VERSION_NUM=${VERSION_NUM}
-COPY --from=package_stage target/my-app-${VERSION_NUM}.jar ${HOME_PATH_ON_IMAGE}
+COPY --from=package_stage target/my-app-${VERSION_NUM}.jar /my-app
 #CMD java -jar my-app-*.jar
 CMD ["/usr/bin/java", "-jar", "my-app-1.0.0.jar"]
