@@ -51,30 +51,16 @@ jobs:
     
     - name: Docker build
       run: |
-<<<<<<< HEAD
         cd maven-hello-world/my-app
         docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
     
-=======
-        pwd
-        ls -la
-        cd maven-hello-world
-        ls -la
-        cd my-app
-        ls -la
-        docker build . -t my-app-java:${{ steps.bump.outputs.jar_version }} -f Dockerfile --build-arg ${{ steps.bump.outputs.jar_version }}
->>>>>>> d5fd9e9d8706656894047baf3a5281f506793f91
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-<<<<<<< HEAD
     - name: Docker push 
-=======
-    - name: Docker push
->>>>>>> d5fd9e9d8706656894047baf3a5281f506793f91
       run: |
         docker push my-app-java:${{ steps.bump.outputs.jar_version }}
     
